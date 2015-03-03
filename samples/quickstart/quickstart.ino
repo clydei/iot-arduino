@@ -15,15 +15,19 @@ byte mac[] = { 0x00, 0xAA, 0xBB, 0xCC, 0xDE, 0x02 };
 #define MQTT_CLIENTID "d:quickstart:iotsample-arduino:00aabbccde02"
 
 #define MQTT_TOPIC "iot-2/evt/status/fmt/json"
-  
-EthernetStack ipstack;  
+
+//Instantiate a YunClient c and use it for the IPStack instantiation
+//IPStack ipstack(c); for the Arduino Yun
+EthernetStack ipstack;
+
+//Replace EthernetStack with IPStack for the Arduino Yun
 MQTT::Client<EthernetStack, Countdown, MQTT_MAX_PACKET_SIZE> client(ipstack);
 
 String deviceEvent;
 
 void setup() {
   Serial.begin(9600);
-  Ethernet.begin(mac);
+  Ethernet.begin(mac); // Use Bridge.begin() for the Arduino Yun
   delay(2000);
 }
 
